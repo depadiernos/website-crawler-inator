@@ -3,11 +3,13 @@ import logo from './logo.svg'
 import './App.css'
 import axios from 'axios'
 
+const initialState = {
+  link: 'http://',
+  levels: 1,
+}
+
 function App() {
-  const [crawl, setCrawl] = useState({
-    link: 'http://',
-    levels: 1,
-  })
+  const [crawl, setCrawl] = useState(initialState)
   const [results, setResults] = useState([])
   const [error, setError] = useState()
 
@@ -40,7 +42,6 @@ function App() {
       <header className='App-header'>
         <img src={logo} className='App-logo' alt='logo' />
         {error && <div>{error}</div>}
-        {results.length >0 && results.map(link => <div>{`${link.name}: ${link.link}`}</div>)}
         <br />
         <form onSubmit={handleSubmit}>
           <label>
@@ -58,8 +59,12 @@ function App() {
           <label>
             Levels <input type='number' name='levels' value={crawl.levels} onChange={handleChange} required />
           </label>
+          <br />
           <button>Crawl!</button>
         </form>
+        <button onClick={() => setResults([])}>Clear!</button>
+        <br/>
+        {results.length >0 && results.map(link => <div>{`${link.name}: ${link.link}`}</div>)}
       </header>
     </div>
   )
