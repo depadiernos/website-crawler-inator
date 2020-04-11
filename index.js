@@ -28,7 +28,7 @@ server.use(logger())
 server.post('/search', async (req, res, next) => {
   try {
     const { link, levels, page } = req.body
-
+    !(searchHistory.includes(link)) && searchHistory.push(link)
     let useCache = { exists: false, results: [] }
     searchResults.map(async each => {
       if (typeof each[`${levels}${link}`] !== 'undefined') {
