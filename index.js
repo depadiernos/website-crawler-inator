@@ -24,6 +24,11 @@ server.use(cors())
 server.use(express.json())
 server.use(logger())
 
+// react app on /
+server.get('/', (req, res) =>{
+  res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'))
+})
+
 // search endpoint
 server.post('/search', async (req, res, next) => {
   try {

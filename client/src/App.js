@@ -39,7 +39,7 @@ function App() {
     }
   }
   const crawlSite = async payload => {
-    const res = await axios.post('http://localhost:4000/search', payload)
+    const res = await axios.post('/search', payload)
     return res.data
   }
 
@@ -62,7 +62,7 @@ function App() {
             <input
               type='text'
               name='link'
-              placeholder='http://xxx'
+              placeholder='http://hazardsof.com'
               value={crawl.link}
               onChange={handleChange}
               required
