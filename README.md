@@ -4,6 +4,10 @@
 
 1. clone this repo
 
+```
+git clone https://github.com/depadiernos/website-crawler-inator.git
+```
+
 2. make sure to install dependencies for both backend and frontend:
 
 ```
