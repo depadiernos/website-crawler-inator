@@ -53,4 +53,12 @@ const webCrawl = async (urls, levels, currentLevel = 0, list = []) => {
   }
 }
 
-module.exports = { validateUrl, getSites, webCrawl }
+const resultsByPage = (results, page) => {
+  if (!page) {
+    return results.slice(0, 20)
+  } else {
+    return results.slice((page - 1) * 20, page * 20)
+  }
+}
+
+module.exports = { validateUrl, getSites, webCrawl, resultsByPage }

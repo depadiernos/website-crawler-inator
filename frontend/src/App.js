@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import logo from './logo.svg'
 import './App.css'
 import axios from 'axios'
@@ -6,6 +6,7 @@ import axios from 'axios'
 const initialState = {
   link: 'http://',
   levels: 1,
+  page: 1,
 }
 
 function App() {
@@ -13,12 +14,16 @@ function App() {
   const [results, setResults] = useState([])
   const [error, setError] = useState()
 
+  useEffect(() => {
+    handleSubmit()
+  }, [crawl.page])
+
   const handleChange = e => {
     setCrawl({ ...crawl, [e.target.name]: e.target.name === 'levels' ? parseInt(e.target.value) : e.target.value })
   }
 
   const handleSubmit = async e => {
-    e.preventDefault()
+    e && e.preventDefault()
     try {
       const results = await crawlSite(crawl)
       setResults(results)
@@ -37,6 +42,14 @@ function App() {
     const res = await axios.post('http://localhost:4000/search', payload)
     return res.data
   }
+
+  const prev = () => {
+    crawl.page > 1 && setCrawl({ ...crawl, page: crawl.page - 1 })
+  }
+  const next = () => {
+    setCrawl({ ...crawl, page: crawl.page + 1 })
+  }
+
   return (
     <div className='App'>
       <header className='App-header'>
@@ -63,8 +76,11 @@ function App() {
           <button>Crawl!</button>
         </form>
         <button onClick={() => setResults([])}>Clear!</button>
-        <br/>
-        {results.length >0 && results.map(link => <div>{`${link.name}: ${link.link}`}</div>)}
+        <br />
+        <button onClick={prev}>Prev</button>
+        <button onClick={next}>Next</button>
+        <br />
+        {results.length > 0 && results.map((link, index) => <div key={index}>{`${link.name}: ${link.link}`}</div>)}
       </header>
     </div>
   )

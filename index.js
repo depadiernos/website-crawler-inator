@@ -1,9 +1,13 @@
 const express = require('express')
 const cors = require('cors')
-const { webCrawl } = require('./helper')
+const { webCrawl, resultsByPage } = require('./helper')
 
 const server = express()
 const port = process.env.PORT || 4000
+
+// rudimentary search history cache
+const searchHistory = []
+const searchResults = []
 
 // logger middleware
 const logger = () => (req, res, next) => {
@@ -23,11 +27,29 @@ server.use(logger())
 // search endpoint
 server.post('/search', async (req, res, next) => {
   try {
-    const { link, levels } = req.body
-    const _list = await webCrawl([{ link }], levels)
-    const _listFlat = _list[0] === typeof Array ? _list.flat(Infinity) : _list
-    const list = _listFlat.filter(each => each && each.link != undefined)
-    res.json(list)
+    const { link, levels, page } = req.body
+
+    let useCache = { exists: false, results: [] }
+    searchResults.map(async each => {
+      if (typeof each[`${levels}${link}`] !== 'undefined') {
+        useCache = { exists: true, results: each[`${levels}${link}`] }
+      }
+    })
+
+    if (useCache.exists) {
+      // use cache if it exists
+      const list = resultsByPage(useCache.results, page)
+      console.log('using cache', list)
+      res.json(list)
+    } else {
+      // else make the http request
+      const _list = await webCrawl([{ link }], levels)
+      const _listFlat = _list[0] === typeof Array ? _list.flat(Infinity) : _list
+      const list = _listFlat.filter(each => each && each.link != undefined)
+      // cache results
+      searchResults.push({ [`${levels}${link}`]: list })
+      res.json(resultsByPage(list, page))
+    }
   } catch (err) {
     next(err)
   }
