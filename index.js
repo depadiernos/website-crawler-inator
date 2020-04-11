@@ -1,5 +1,7 @@
 const express = require('express')
 const cors = require('cors')
+const path = require('path');
+
 const { webCrawl, resultsByPage } = require('./helper')
 
 const server = express()
@@ -24,10 +26,16 @@ server.use(cors())
 server.use(express.json())
 server.use(logger())
 
-// react app on /
-server.get('/', (req, res) =>{
-  res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'))
-})
+// serve react app
+if (process.env.NODE_ENV === 'production') {
+  // Serve any static files
+  app.use(express.static(path.join(__dirname, 'client/build')));
+    
+  // Handle client-side routing, return all requests to React app
+  app.get('*', function(req, res) {
+    res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
+  });
+}
 
 // search endpoint
 server.post('/search', async (req, res, next) => {
