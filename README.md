@@ -1,12 +1,16 @@
 # website-crawler-inator
 
-to start crawler locally, make sure to install dependencies for both backend and frontend:
+### to start crawler locally
+
+1. clone this repo
+
+2. make sure to install dependencies for both backend and frontend:
 
 ```
 npm run install-all
 ```
 
-then run:
+3. then run:
 
 ```
 npm run server
