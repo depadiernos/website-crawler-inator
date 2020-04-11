@@ -77,10 +77,16 @@ function App() {
         </form>
         <button onClick={() => setResults([])}>Clear!</button>
         <br />
-        <button onClick={prev}>Prev</button>
-        <button onClick={next}>Next</button>
         <br />
-        {results.length > 0 && results.map((link, index) => <div key={index}>{`${link.name}: ${link.link}`}</div>)}
+        {results.length > 0 && (
+          <div>
+            <button onClick={prev}>Prev</button>
+            <button onClick={next}>Next</button>
+            {results.map((link, index) => (
+              <div key={index}>{`${link.name}: ${link.link}`}</div>
+            ))}
+          </div>
+        )}
       </header>
     </div>
   )
