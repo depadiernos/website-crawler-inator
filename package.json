@@ -16,8 +16,9 @@
     "nodemon": "^2.0.3"
   },
   "scripts": {
+    "install-all": "npm i ; pushd frontend/ ; npm i; popd",
     "start": "node index.js",
-    "server":"npm-run-all -l -p server:backend server:frontend",
+    "server": "npm-run-all -l -p server:backend server:frontend",
     "server:backend": "nodemon index.js",
     "server:frontend": "cd frontend; npm start"
   },

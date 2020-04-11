@@ -5,8 +5,8 @@ import axios from 'axios'
 
 function App() {
   const [crawl, setCrawl] = useState({
-    link: '',
-    levels: 0,
+    link: 'http://',
+    levels: 1,
   })
   const [results, setResults] = useState([])
   const [error, setError] = useState()
