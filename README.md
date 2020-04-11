@@ -11,6 +11,7 @@ git clone https://github.com/depadiernos/website-crawler-inator.git
 2. make sure to install dependencies for both backend and frontend:
 
 ```
+cd website-crawler-inator
 npm run install-all
 ```
 
