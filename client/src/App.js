@@ -43,11 +43,16 @@ function App() {
     return res.data
   }
 
+  const clear = () => {
+    setResults([])
+    setCrawl({...crawl, page: 1})
+  }
+
   const prev = () => {
     crawl.page > 1 && setCrawl({ ...crawl, page: crawl.page - 1 })
   }
   const next = () => {
-    setCrawl({ ...crawl, page: crawl.page + 1 })
+    results > 0 && setCrawl({ ...crawl, page: crawl.page + 1 })
   }
 
   return (
@@ -75,7 +80,7 @@ function App() {
           <br />
           <button>Crawl!</button>
         </form>
-        <button onClick={() => setResults([])}>Clear!</button>
+        <button onClick={clear}>Clear!</button>
         <br />
         <br />
         {results.length > 0 && (
