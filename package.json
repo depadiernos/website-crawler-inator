@@ -22,7 +22,7 @@
     "server": "npm-run-all -l -p server:backend server:frontend",
     "server:backend": "nodemon index.js",
     "server:frontend": "cd client; npm start",
-    "build:frontend": "cd client && npm install && npm install --only=dev --no-shrinkwrap && npm run build"
+    "heroku-postbuild": "cd client && npm install && npm install && npm run build"
   },
   "keywords": [],
   "author": "",
