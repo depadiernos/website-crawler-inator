@@ -1,6 +1,6 @@
 const express = require('express')
 const cors = require('cors')
-const path = require('path');
+const path = require('path')
 
 const { webCrawl, resultsByPage } = require('./helper')
 
@@ -27,18 +27,18 @@ server.use(express.json())
 server.use(logger())
 
 // serve react app
-  server.use(express.static(path.join(__dirname, 'client/build')));
-    
-  // Handle client-side routing, return all requests to React app
-  server.get('*', function(req, res) {
-    res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
-  });
+server.use(express.static(path.join(__dirname, 'client/build')))
+
+// Handle client-side routing, return all requests to React app
+server.get('*', function (req, res) {
+  res.sendFile(path.join(__dirname, 'client/build', 'index.html'))
+})
 
 // search endpoint
 server.post('/search', async (req, res, next) => {
   try {
     const { link, levels, page } = req.body
-    !(searchHistory.includes(link)) && searchHistory.push(link)
+    !searchHistory.includes(link) && searchHistory.push(link)
     let useCache = { exists: false, results: [] }
     searchResults.map(async each => {
       if (typeof each[`${levels}${link}`] !== 'undefined') {
@@ -50,7 +50,7 @@ server.post('/search', async (req, res, next) => {
       // use cache if it exists
       const list = resultsByPage(useCache.results, page)
       console.log('using cache', list)
-      res.json(list)
+      res.json({ results: list, total: useCache.results.length })
     } else {
       // else make the http request
       const _list = await webCrawl([{ link }], levels)
@@ -58,7 +58,7 @@ server.post('/search', async (req, res, next) => {
       const list = _listFlat.filter(each => each && each.link != undefined)
       // cache results
       searchResults.push({ [`${levels}${link}`]: list })
-      res.json(resultsByPage(list, page))
+      res.json({ results: resultsByPage(list, page), total: useCache.results.length })
     }
   } catch (err) {
     next(err)

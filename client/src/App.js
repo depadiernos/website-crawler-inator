@@ -7,6 +7,7 @@ const initialState = {
   link: 'http://',
   levels: 1,
   page: 1,
+  total: 0
 }
 
 function App() {
@@ -25,8 +26,9 @@ function App() {
   const handleSubmit = async e => {
     e && e.preventDefault()
     try {
-      const results = await crawlSite(crawl)
-      setResults(results)
+      const data = await crawlSite(crawl)
+      setResults(data.results)
+      setCrawl({...crawl, total: data.total})
     } catch (error) {
       const status = error.response && error.response.status
       switch (status) {
