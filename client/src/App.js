@@ -49,10 +49,10 @@ function App() {
   }
 
   const prev = () => {
-    crawl.page > 1 ? setCrawl({ ...crawl, page: crawl.page - 1 }): null
+    crawl.page > 1 ? setCrawl({ ...crawl, page: crawl.page - 1 }): setCrawl({ ...crawl})
   }
   const next = () => {
-    results.length > 0 ? setCrawl({ ...crawl, page: crawl.page + 1 }): null
+    results.length > 0 ? setCrawl({ ...crawl, page: crawl.page + 1 }): setCrawl({ ...crawl})
   }
 
   return (
