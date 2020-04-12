@@ -16,7 +16,7 @@ function App() {
 
   useEffect(() => {
     handleSubmit()
-  }, [crawl.page])
+  }, [handleSubmit, crawl.page])
 
   const handleChange = e => {
     setCrawl({ ...crawl, [e.target.name]: e.target.name === 'levels' ? parseInt(e.target.value) : e.target.value })
