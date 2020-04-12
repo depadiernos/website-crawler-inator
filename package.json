@@ -21,7 +21,8 @@
     "start": "node index.js",
     "server": "npm-run-all -l -p server:backend server:frontend",
     "server:backend": "nodemon index.js",
-    "server:frontend": "cd frontend; npm start"
+    "server:frontend": "cd client; npm start",
+    "build:frontend": "cd client && npm install && npm install --only=dev --no-shrinkwrap && npm run build"
   },
   "keywords": [],
   "author": "",
