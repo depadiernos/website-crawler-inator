@@ -45,14 +45,21 @@ function App() {
 
   const clear = () => {
     setResults([])
-    setCrawl({...crawl, page: 1})
+    setCrawl({ ...crawl, page: 1 })
   }
 
   const prev = () => {
-    crawl.page > 1 ? setCrawl({ ...crawl, page: crawl.page - 1 }): setCrawl({ ...crawl})
+    crawl.page > 1 ? setCrawl({ ...crawl, page: crawl.page - 1 }) : setCrawl({ ...crawl })
   }
   const next = () => {
-    results.length > 0 ? setCrawl({ ...crawl, page: crawl.page + 1 }): setCrawl({ ...crawl})
+    if (
+      (crawl.page <= results.length / 20 && results.length % 20 !== 0) ||
+      (crawl.page < results.length / 20 && results.length % 20 === 0)
+    ) {
+      setCrawl({ ...crawl, page: crawl.page + 1 })
+    } else {
+      setCrawl({ ...crawl })
+    }
   }
 
   return (
