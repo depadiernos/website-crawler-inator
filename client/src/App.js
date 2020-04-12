@@ -55,8 +55,8 @@ function App() {
   }
   const next = () => {
     if (
-      (crawl.page <= results.length / 20 && results.length % 20 !== 0) ||
-      (crawl.page < results.length / 20 && results.length % 20 === 0)
+      (crawl.page <= crawl.total / 20 && crawl.total % 20 !== 0) ||
+      (crawl.page < crawl.total / 20 && crawl.total % 20 === 0)
     ) {
       setCrawl({ ...crawl, page: crawl.page + 1 })
     } else {
