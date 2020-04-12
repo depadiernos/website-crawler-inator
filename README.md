@@ -1,24 +1,26 @@
 # website-crawler-inator
 
-### to start crawler locally
+App is deployed on Heroku: https://website-crawler-inator.herokuapp.com/
 
-1. clone this repo
+### To start crawler locally
+
+1. Clone this repo
 
 ```
 git clone https://github.com/depadiernos/website-crawler-inator.git
 ```
 
-2. make sure to install dependencies for both backend and frontend:
+2. Make sure to install dependencies for both backend and frontend:
 
 ```
 cd website-crawler-inator
 npm run install-all
 ```
 
-3. then run:
+3. Then run:
 
 ```
 npm run server
 ```
 
-this will run the backend on localhost:4000 and the frontend on localhost:3000
+This will run the backend on localhost:4000 and a browser window will open to localhost:3000 for the frontend.
