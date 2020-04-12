@@ -52,7 +52,7 @@ function App() {
     crawl.page > 1 && setCrawl({ ...crawl, page: crawl.page - 1 })
   }
   const next = () => {
-    results > 0 && setCrawl({ ...crawl, page: crawl.page + 1 })
+    results.length > 0 && setCrawl({ ...crawl, page: crawl.page + 1 })
   }
 
   return (
