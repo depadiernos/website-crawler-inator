@@ -58,7 +58,7 @@ server.post('/search', async (req, res, next) => {
       const list = _listFlat.filter(each => each && each.link != undefined)
       // cache results
       searchResults.push({ [`${levels}${link}`]: list })
-      res.json({ results: resultsByPage(list, page), total: useCache.results.length })
+      res.json({ results: resultsByPage(list, page), total: list.length })
     }
   } catch (err) {
     next(err)
