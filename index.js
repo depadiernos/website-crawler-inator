@@ -27,15 +27,12 @@ server.use(express.json())
 server.use(logger())
 
 // serve react app
-if (process.env.NODE_ENV === 'production') {
-  // Serve any static files
-  app.use(express.static(path.join(__dirname, 'client/build')));
+  server.use(express.static(path.join(__dirname, 'client/build')));
     
   // Handle client-side routing, return all requests to React app
-  app.get('*', function(req, res) {
+  server.get('*', function(req, res) {
     res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
   });
-}
 
 // search endpoint
 server.post('/search', async (req, res, next) => {
