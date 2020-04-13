@@ -1,5 +1,6 @@
 # website-crawler-inator
 
+This is a crawler that will show a list of all the links on a given URL up to the depth level specified.
 App is deployed on Heroku: https://website-crawler-inator.herokuapp.com/
 
 ### To start crawler locally
